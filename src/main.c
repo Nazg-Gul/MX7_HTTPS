@@ -451,18 +451,22 @@ int main() {
   while ((ret = wolfSSL_read(ssl, buffer, sizeof(buffer) - 1)) > 0) {
     char *tasks_token;
     buffer[ret] = '\0';
-    tasks_token = strstr(buffer, "total tasks");
-    if(tasks_token >= buffer - 5) {
-      char *start = strchr(tasks_token - 5, '>');
-      char *end = strchr(tasks_token - 5, ' ');
-      char count[5];
-      strncpy(count, start + 1, end - start - 1);
-      count[end - start - 1] = '\0';
-      putsUART("Number of tasks: ");
-      putsUART(count);
-      putsUART("\r\n");
+    tasks_token = strstr(buffer, ">Open Tasks (");
+    if (tasks_token != NULL) {
+      char *start = tasks_token + 13;
+      char *end = strchr(start, ')');
+      putsUART("Found Token!!\r\n");
+      if (end - start < 5) {
+        char count[5];
+        strncpy(count, start, end - start);
+        count[end - start] = '\0';
+        putsUART("Number of tasks: ");
+        putsUART(count);
+        putsUART("\r\n");
+      }
     }
-    //putsUART(buffer);
+    // putsUART(buffer);
+    // putsUART("\r\n");
     led |= BIT_14;
     PORTWrite(IOPORT_G, led);
   }
