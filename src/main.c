@@ -40,10 +40,10 @@
 #pragma config ICESEL = ICS_PGx1
 
 /* Microcontroller MIPs (FCY)/ */
-#define SYS_FREQ 80000000L  //80 Mhz
+#define SYS_FREQ 80000000L  /* 80 Mhz */
 #define FCY      SYS_FREQ
 
-#define PB_DIV                 2
+#define PB_DIV 2
 
 uint8_t mac[] = { 0x54, 0x55, 0x58, 0x10, 0x00, 0x24 };
 uint8_t ip[] = { 192,168,3,9 };
@@ -368,7 +368,7 @@ int main() {
 
   /* Initialize SSL. */
   wolfSSL_SetLoggingCb(logging_cb);
-  //wolfSSL_Debugging_ON();
+  // wolfSSL_Debugging_ON();
   wolfSSL_Init();
 
   /* Create and initiLize WOLFSSL_CTX structure. */
